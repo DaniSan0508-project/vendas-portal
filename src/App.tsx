@@ -1,8 +1,7 @@
-import { LoginScreen } from './modules/login'
-
+import { LoginScreen } from './modules/login';
 
 const App = () => {
-  return <LoginScreen />
-}
+  return <LoginScreen />;
+};
 
 export { App };
