@@ -10,7 +10,9 @@ export const BackgroundImage = styled.img`
   z-index: -1;
 `;
 
-export const LogoImage = styled.img``;
+export const LogoImage = styled.img`
+  width: 202px;
+`;
 
 export const ContainerLogin = styled.div`
   display: flex;
@@ -26,6 +28,7 @@ export const ContainerLogin = styled.div`
 
 export const LimitedContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   width: 100%;
   max-width: 498px;
