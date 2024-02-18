@@ -8,21 +8,33 @@ import {
   LogoImage,
   TitleLogin,
 } from '../styles/loginScreen.styles';
+import axios from 'axios';
 
 const LoginScreen = () => {
-  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleUserName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(event.target.value);
+  const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
   };
 
   const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
 
-  const handleLogin = () => {
-    alert(`${userName} ::: ${password}`);
+  const handleLogin = async () => {
+    await axios({
+      method: 'post',
+      url: 'http://localhost:8080/auth',
+      data: {
+        email: email,
+        password: password,
+      },
+    })
+      .then((result) => {
+        return result.data;
+      })
+      .catch(() => alert('Usuário ou senha invalido'));
   };
 
   return (
@@ -37,8 +49,8 @@ const LoginScreen = () => {
           <Input
             title="USUÁRIO"
             margin="32px 0px 0px"
-            onChange={handleUserName}
-            value={userName}
+            onChange={handleEmail}
+            value={email}
           />
           <Input
             title="SENHA"
