@@ -1,8 +1,13 @@
 import { Typography } from 'antd';
 import styled from 'styled-components';
 
-export const BoxInput = styled.div`
+interface IBoxInputProps {
+  margin?: string;
+}
+
+export const BoxInput = styled.div<IBoxInputProps>`
   width: 100%;
+  ${({ margin }) => margin && `margin:${margin}`}
 `;
 
 export const TitleInput = styled(Typography.Text)`
