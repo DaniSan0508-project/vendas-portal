@@ -9,11 +9,13 @@ import {
   LogoImage,
   TitleLogin,
 } from '../styles/loginScreen.styles';
+import { useGlobalContext } from '../../../share/hooks/userGlobalContext';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { loading, postRequest } = useRequests();
+  const { accessToken, setAccessToken } = useGlobalContext();
 
   const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -25,6 +27,7 @@ const LoginScreen = () => {
 
   const handleLogin = () => {
     postRequest('http://localhost:8080/auth', { email, password });
+    setAccessToken('sdxasdaskasxmasKKsiakssaxam');
   };
 
   return (
@@ -34,7 +37,7 @@ const LoginScreen = () => {
         <LimitedContainer>
           <LogoImage src="./logo.png" />
           <TitleLogin level={2} type="secondary">
-            Login
+            Login ({accessToken})
           </TitleLogin>
           <Input
             title="USUÁRIO"
