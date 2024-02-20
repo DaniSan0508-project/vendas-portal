@@ -3,8 +3,15 @@ import React from 'react';
 
 interface IGlobalData {
   accessToken?: string;
+  notification?: INotificationProps;
 }
 
+type NotificationType = 'success' | 'info' | 'warning' | 'error';
+interface INotificationProps {
+  message: string;
+  type: NotificationType;
+  description?: string;
+}
 interface IGlobalContextProps {
   globalData: IGlobalData;
   setGlobalData: (globalData: IGlobalData) => void;
@@ -18,7 +25,11 @@ export const GlobalContext = createContext({} as IGlobalContextProps);
 
 const GlobalProvider = ({ children }: IGlobalProvider) => {
   const [globalData, setGlobalData] = useState<IGlobalData>({
-    accessToken: 'teste',
+    accessToken: '',
+    notification: {
+      message: '',
+      type: 'success',
+    },
   });
 
   return (
@@ -36,9 +47,26 @@ const useGlobalContext = () => {
       accessToken,
     });
   };
+
+  const setNotification = (
+    message: string,
+    type: NotificationType,
+    description?: string,
+  ) => {
+    setGlobalData({
+      ...globalData,
+      notification: {
+        message,
+        type,
+        description,
+      },
+    });
+  };
   return {
+    notification: globalData?.notification,
     accessToken: globalData?.accessToken || 'teste',
     setAccessToken,
+    setNotification,
   };
 };
 

@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useGlobalContext } from './userGlobalContext';
 
 const useRequests = () => {
   const [loading, setLoading] = useState(false);
+  const { setNotification } = useGlobalContext();
 
   const getRequest = async (url: string) => {
     setLoading(true);
@@ -20,9 +22,14 @@ const useRequests = () => {
     setLoading(true);
     try {
       const result = await axios.post(url, body);
+      setNotification(
+        'Seja Bem vindo',
+        'success',
+        'Seja bem vindo ao portal web xD',
+      );
       return result.data;
     } catch (error) {
-      alert('Usuário ou senha inválido');
+      setNotification('Senha inválida', 'error');
     } finally {
       setLoading(false);
     }
