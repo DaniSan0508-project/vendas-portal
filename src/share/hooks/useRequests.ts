@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useGlobalContext } from './userGlobalContext';
+import { ConnectionApiPost } from '../functions/connection/connectionApi';
 
 const useRequests = () => {
   const [loading, setLoading] = useState(false);
@@ -18,21 +19,22 @@ const useRequests = () => {
     }
   };
 
-  const postRequest = async (url: string, body: any) => {
+  const postRequest = async (url: string, body: unknown) => {
     setLoading(true);
-    try {
-      const result = await axios.post(url, body);
-      setNotification(
-        'Seja Bem vindo',
-        'success',
-        'Seja bem vindo ao portal web xD',
-      );
-      return result.data;
-    } catch (error) {
-      setNotification('Senha inválida', 'error');
-    } finally {
-      setLoading(false);
-    }
+    const returnData = await ConnectionApiPost(url, body)
+      .then((result) => {
+        setNotification(
+          'Logado',
+          'success',
+          'Seja bem vindo ao portal de vendas xD',
+        );
+        return result;
+      })
+      .catch((error: Error) => {
+        setNotification(error.message, 'error');
+      });
+    setLoading(false);
+    return returnData;
   };
 
   return {
