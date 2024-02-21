@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import React from 'react';
 import { getAuthorizationToken, setAuthotizationToken } from '../functions/connection/auth';
-import { getSearchParamsForLocation } from 'react-router-dom/dist/dom';
 
 interface IGlobalData {
   accessToken?: string;

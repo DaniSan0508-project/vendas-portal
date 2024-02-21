@@ -19,9 +19,9 @@ const useRequests = () => {
     }
   };
 
-  const postRequest = async <T>(url: string, body: unknown): Promise<T | undefined> => {
+  const postRequest = async <T>(url: string, body: any): Promise<T | undefined> => {
     setLoading(true);
-    const returnData = await ConnectionApiPost(url, body)
+    const returnData = await <T>ConnectionApiPost(url, body)
       .then((result) => {
         setNotification(
           'Logado',

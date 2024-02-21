@@ -45,18 +45,18 @@ export const ConnectionApiGet = async <T>(url: string): Promise<T | undefined> =
   return ConnectionApi.connect(url, MethodsEnum.GET) || undefined;
 };
 
-export const ConnectionApiPost = async <T>(url: string, body: any): Promise<T |undefined> => {
+export const ConnectionApiPost = async <T>(url: string, body: any): Promise<T | undefined> => {
   return ConnectionApi.connect(url, MethodsEnum.POST, body);
 };
 
-export const ConnectionApiDelete = async <T>(url: string) => {
+export const ConnectionApiDelete = async (url: string) => {
   return ConnectionApi.connect(url, MethodsEnum.DELETE);
 };
 
-export const ConnectionApiPut = async <T>(url: string, body: any): Promise<T |undefined> => {
+export const ConnectionApiPut = async <T>(url: string, body: any): Promise<T | undefined> => {
   return ConnectionApi.connect(url, MethodsEnum.PUT, body);
 };
 
-export const ConnectionApiPatch = async <T>(url: string, body: any): Promise<T |undefined> => {
+export const ConnectionApiPatch = async <T>(url: string, body: any): Promise<T | undefined> => {
   return ConnectionApi.connect(url, MethodsEnum.PATCH, body);
 };
