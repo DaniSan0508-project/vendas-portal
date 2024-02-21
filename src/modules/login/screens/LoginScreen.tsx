@@ -10,6 +10,7 @@ import {
   TitleLogin,
 } from '../styles/loginScreen.styles';
 import { useGlobalContext } from '../../../share/hooks/userGlobalContext';
+import { UserType } from '../types/UserType';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -25,9 +26,9 @@ const LoginScreen = () => {
     setPassword(event.target.value);
   };
 
-  const handleLogin = () => {
-    postRequest('http://localhost:8080/auth', { email, password });
-    setAccessToken('sdxasdaskasxmasKKsiakssaxam');
+  const handleLogin = async () => {
+    const user = await postRequest<UserType>('http://localhost:8080/auth', { email, password });
+    setAccessToken(user?.accessToken || '');
   };
 
   return (

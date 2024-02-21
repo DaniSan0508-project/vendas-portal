@@ -19,7 +19,7 @@ const useRequests = () => {
     }
   };
 
-  const postRequest = async (url: string, body: unknown) => {
+  const postRequest = async <T>(url: string, body: unknown): Promise<T | undefined> => {
     setLoading(true);
     const returnData = await ConnectionApiPost(url, body)
       .then((result) => {
@@ -32,6 +32,7 @@ const useRequests = () => {
       })
       .catch((error: Error) => {
         setNotification(error.message, 'error');
+        return undefined;
       });
     setLoading(false);
     return returnData;

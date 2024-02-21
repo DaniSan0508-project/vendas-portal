@@ -1,5 +1,7 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import React from 'react';
+import { getAuthorizationToken, setAuthotizationToken } from '../functions/connection/auth';
+import { getSearchParamsForLocation } from 'react-router-dom/dist/dom';
 
 interface IGlobalData {
   accessToken?: string;
@@ -41,7 +43,18 @@ const GlobalProvider = ({ children }: IGlobalProvider) => {
 
 const useGlobalContext = () => {
   const { globalData, setGlobalData } = useContext(GlobalContext);
+
+  useEffect(() => {
+    const token = getAuthorizationToken();
+
+    if (token) {
+      setAccessToken(token);
+    };
+  }, []);
+
+
   const setAccessToken = (accessToken: string) => {
+    setAuthotizationToken(accessToken);
     setGlobalData({
       ...globalData,
       accessToken,
