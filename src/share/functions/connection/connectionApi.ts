@@ -6,7 +6,7 @@ import {
 } from '../../constants/errorStatus';
 
 export default class ConnectionApi {
-  static async call<T>(url: string, method: string, body?: unknown) {
+  static async call<T>(url: string, method: string, body?: unknown): Promise<T> {
     switch (method) {
       case MethodsEnum.GET:
         return (await axios.get<T>(url)).data;
@@ -17,11 +17,12 @@ export default class ConnectionApi {
       case MethodsEnum.PUT:
         return (await axios.put<T>(url, body)).data;
       case MethodsEnum.PATCH:
+        default:
         return (await axios.patch<T>(url, body)).data;
     }
   }
 
-  static async connect(url: string, method: string, body?: unknown) {
+  static async connect<T>(url: string, method: string, body?: unknown): Promise<T | unknown> {
     return ConnectionApi.call(url, method, body).catch((error) => {
       if (error.response) {
         switch (error.response.status) {
@@ -37,11 +38,11 @@ export default class ConnectionApi {
   }
 }
 
-export const ConnectionApiGet = async <T>(url: string) => {
+export const ConnectionApiGet = async <T>(url: string): Promise<T | unknown> => {
   return ConnectionApi.connect(url, MethodsEnum.GET);
 };
 
-export const ConnectionApiPost = async <T>(url: string, body: unknown) => {
+export const ConnectionApiPost = async <T>(url: string, body: unknown): Promise<T | unknown> => {
   return ConnectionApi.connect(url, MethodsEnum.POST, body);
 };
 
@@ -49,10 +50,10 @@ export const ConnectionApiDelete = async <T>(url: string) => {
   return ConnectionApi.connect(url, MethodsEnum.DELETE);
 };
 
-export const ConnectionApiPut = async <T>(url: string, body: unknown) => {
+export const ConnectionApiPut = async <T>(url: string, body: unknown): Promise<T | unknown> => {
   return ConnectionApi.connect(url, MethodsEnum.PUT, body);
 };
 
-export const ConnectionApiPatch = async <T>(url: string, body: unknown) => {
+export const ConnectionApiPatch = async <T>(url: string, body: unknown): Promise<T | unknown> => {
   return ConnectionApi.connect(url, MethodsEnum.PATCH, body);
 };
