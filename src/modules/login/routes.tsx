@@ -5,9 +5,13 @@ interface ILoginProps {
   element: JSX.Element;
 }
 
+export enum LoginRoutesEnum {
+  LOGIN = '/login',
+}
+
 export const loginRoutes: ILoginProps[] = [
   {
-    path: '/login',
+    path: LoginRoutesEnum.LOGIN,
     element: <LoginScreen />,
   },
 ];
